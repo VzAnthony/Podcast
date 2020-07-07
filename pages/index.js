@@ -1,12 +1,12 @@
 import 'isomorphic-fetch';
 import Layout from '../components/Layout'
+import ChannelGrid from '../components/ChannelGrid'
 
 const Home = (props) => {
   const { channels } = props
-  console.log(channels)
   return (
     <Layout title='Podcast'>
-      <h1>Home</h1>
+      <ChannelGrid channels={channels} />
     </Layout>
   )
 }
