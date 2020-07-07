@@ -1,13 +1,13 @@
 import Link from 'next/link'
+import slug from '../helpers/slug';
 
 const ChannelGrid = (props) => {
   const { channels } = props
-  console.log(channels)
   return (
     <>
       <div className="channelList">
-        {channels.map((channel) => (
-          <Link href='/[channel].[id]' as={`/${channel.title}.${channel.id}`}>
+        {channels.map((channel, index) => (
+          < Link href={'/[id]'} as={`${slug(channel.title)}.${channel.id}`} key={index}>
             <a className="channelList__item">
               <div className="chanelList__item--imgContainer">
                 <img src={channel.urls.logo_image.original} alt="" />
