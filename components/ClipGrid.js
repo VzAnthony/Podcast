@@ -1,8 +1,19 @@
+import { useState } from 'react'
+import PodcastMedia from '../components/PodcastMedia'
+
 const ClipGrid = (props) => {
   const { clips } = props
+  const [modal, setModal] = useState({ open: false })
+
+  const handleClick = (podcast) => {
+    console.log(podcast)
+    setModal({ open: true, podcast })
+  }
+
   return <ul className='clipList'>
-    {clips.map((clip) => (
-      <li className='clipList__item'>
+    {modal.open && <PodcastMedia modal={modal} setModal={setModal} />}
+    {clips.map((clip, index) => (
+      <li className='clipList__item' onClick={() => handleClick(clip)} key={index}>
         <img src={clip.urls.image} alt="ImagenPodcast" />
         <p className='clipList__item__title'>{clip.title}</p>
         <p className='clipList__item__play'>Play</p>
