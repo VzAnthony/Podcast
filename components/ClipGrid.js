@@ -6,7 +6,6 @@ const ClipGrid = (props) => {
   const [modal, setModal] = useState({ open: false })
 
   const handleClick = (podcast) => {
-    console.log(podcast)
     setModal({ open: true, podcast })
   }
 
