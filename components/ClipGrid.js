@@ -13,7 +13,11 @@ const ClipGrid = (props) => {
     {modal.open && <PodcastMedia modal={modal} setModal={setModal} />}
     {clips.map((clip, index) => (
       <li className='clipList__item' onClick={() => handleClick(clip)} key={index}>
-        <img src={clip.urls.image} alt="ImagenPodcast" />
+        {clip.urls.image ?
+          <img src={clip.urls.image} alt="ImagenPodcast" />
+          :
+          <img src={clip.channel.urls.logo_image.original} alt="ImagenPodcast" />
+        }
         <p className='clipList__item__title'>{clip.title}</p>
         <p className='clipList__item__play'>Play</p>
       </li>

@@ -53,6 +53,31 @@ const PodcastMedia = (props) => {
         .podcastContainer audio{
           width:100%;
         }
+        @media screen and  (max-width: 768px) {
+          .btn {
+            margin: 3px 0 20px 5px;
+            width: 80px;
+            height:45px;
+            font-size:14px;          
+          }
+          .podcastContainer{
+            display:grid;
+            justify-content:center;
+            grid-template-columns: minmax(300px, 500px);
+            grid-template-rows: 1fr .1fr .1fr;
+          }
+          .podcastContainer img{
+            width:75%;
+            justify-self:center;
+          }
+          .podcastContainer p{
+            text-align:center;
+            color:white;
+            font-size:30px;
+          }
+          .podcastContainer audio{
+            width:100%;
+          }
       `}</style>
   </div>
 }

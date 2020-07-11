@@ -38,6 +38,13 @@ const channel = (props) => {
         .btn:hover{
           text-decoration:underline;
         }
+        @media screen and  (max-width: 768px) {
+          .btn {
+            margin: -48px 0 20px 5px;
+            width: 80px;
+            height:45px;
+            font-size:14px;          }
+        }
         `}</style>
     </Layout>
   )
