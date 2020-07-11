@@ -2,10 +2,14 @@ import Layout from '../components/Layout'
 import Banner from '../components/Banner'
 import ClipGrid from '../components/ClipGrid'
 import Link from 'next/link';
+import Error from './_error'
 
 
 const channel = (props) => {
-  const { channel, clips } = props
+  const { channel, clips, statusCode } = props
+  if (statusCode !== 200) {
+    return <Error statusCode={statusCode} />
+  }
   return (
     <Layout title={channel.title}>
       <Link href='/'>
@@ -40,17 +44,31 @@ const channel = (props) => {
 }
 
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, res }) {
   const idChannel = params.id.split('.')[1]
-  const [reqChannel, reqClips] = await Promise.all([
-    fetch(`https://api.audioboom.com/channels/${idChannel}`),
-    fetch(`https://api.audioboom.com/channels/${idChannel}/audio_clips`)
-  ])
-  const dataChannel = await reqChannel.json()
-  const dataClips = await reqClips.json()
-  const channel = dataChannel.body.channel
-  const clips = dataClips.body.audio_clips
-  return { props: { channel, clips } }
+
+  try {
+    const [reqChannel, reqClips] = await Promise.all([
+      fetch(`https://api.audioboom.com/channels/${idChannel}`),
+      fetch(`https://api.audioboom.com/channels/${idChannel}/audio_clips`)
+    ])
+    if (reqChannel.status >= 400) {
+      res.statusCode = reqChannel.status
+      return { props: { channel: null, clips: null, statusCode: reqChannel.status } }
+    }
+
+    const [dataChannel, dataClips] = await Promise.all([
+      reqChannel.json(),
+      reqClips.json()
+    ])
+
+    const channel = dataChannel.body.channel
+    const clips = dataClips.body.audio_clips
+    return { props: { channel, clips, statusCode: 200 } }
+  } catch (e) {
+    res.statusCode = 503;
+    return { props: { channel: null, clips: null, statusCode: 503 } }
+  }
 }
 
 
