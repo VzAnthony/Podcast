@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PodcastMedia from '../components/PodcastMedia'
+import { FaPlay } from 'react-icons/fa'
 
 const ClipGrid = (props) => {
   const { clips } = props
@@ -19,7 +20,7 @@ const ClipGrid = (props) => {
           <img src={clip.channel.urls.logo_image.original} alt="ImagenPodcast" />
         }
         <p className='clipList__item__title'>{clip.title}</p>
-        <p className='clipList__item__play'>Play</p>
+        <p className='clipList__item__play'><FaPlay /></p>
       </li>
     ))}
 

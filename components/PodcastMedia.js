@@ -8,7 +8,11 @@ const PodcastMedia = (props) => {
   return <div className="modal">
     <button className='btn' onClick={handleClickClose} >{'<'} Volver</button>
     <div className="podcastContainer">
-      <img src={modal.podcast.urls.image} alt="" />
+      {modal.podcast.urls.image ?
+        <img src={modal.podcast.urls.image} alt="" />
+        :
+        <img src={modal.podcast.channel.urls.logo_image.original} alt="" />
+      }
       <p>{modal.podcast.title}</p>
       <audio src={modal.podcast.urls.high_mp3} controls autoplay></audio>
     </div>
